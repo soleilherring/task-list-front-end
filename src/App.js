@@ -34,7 +34,7 @@ const App = () => {
       </header>
       <main>
         <div>
-          <TaskList tasks={TASKS} updateTask={updateTask} />
+          <TaskList tasks={taskData} updateTask={updateTask} />
         </div>
       </main>
     </div>
