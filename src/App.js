@@ -18,15 +18,26 @@ const TASKS = [
 const App = () => {
   const [taskData, setTaskData] = useState(TASKS);
 
-  const updateTask = (taskId) => {
-    const newTaskData = [...taskData];
-    for (const task of newTaskData) {
-      if (task.id === taskId) {
-        !task.isComplete;
-      }
-    }
-    setTaskData(updateTask);
+  const updateTask = (id) => {
+    setTaskData((oldTasks) => {
+      return oldTasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, isComplete: !task.isComplete };
+        } else {
+          return task;
+        }
+      });
+    });
   };
+
+  const deleteTask = (id) => {
+    setTaskData((oldTasks) => {
+      return oldTasks.filter((task) => {
+        if (task.id != id) return task;
+      });
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -34,7 +45,11 @@ const App = () => {
       </header>
       <main>
         <div>
-          <TaskList tasks={taskData} updateTask={updateTask} />
+          <TaskList
+            tasks={taskData}
+            onToggleCompleteCallback={updateTask}
+            onDeleteTask={deleteTask}
+          />
         </div>
       </main>
     </div>

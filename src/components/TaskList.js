@@ -12,7 +12,8 @@ const TaskList = (props) => {
           id={task.id}
           title={task.title}
           isComplete={task.isComplete}
-          updateTask={props.updateTask}
+          onToggleCompleteCallback={props.onToggleCompleteCallback}
+          onDeleteTask={props.onDeleteTask}
         />
       );
     });
@@ -29,7 +30,8 @@ TaskList.propTypes = {
     })
   ).isRequired,
 
-  updateTask: PropTypes.func,
+  onToggleCompleteCallback: PropTypes.func,
+  onDeleteTask: PropTypes.func,
 };
 
 export default TaskList;
