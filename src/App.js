@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 const TASKS = [
   {
@@ -17,6 +18,24 @@ const TASKS = [
 ];
 const App = () => {
   const [taskData, setTaskData] = useState(TASKS);
+
+  const kBaseUrl = 'http://localhost:5000';
+
+  useEffect(() => {
+    getAllTasks();
+  }, []);
+
+  const getAllTasks = () => {
+    return axios
+      .get(`${kBaseUrl}/tasks`)
+      .then((response) => {
+        setTaskData(response.data.task);
+        console.log(response.data.task);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const updateTask = (id) => {
     setTaskData((oldTasks) => {
